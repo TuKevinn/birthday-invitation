@@ -8,34 +8,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg,#0f2347,#142d5f);
-  color:white;
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#0f2347,#142d5f);
+  color:#fff;
   overflow-x:hidden;
 }
 
-.section {
+.section{
   min-height:100vh;
   display:none;
   align-items:center;
   justify-content:center;
   text-align:center;
-  padding:40px 20px;
+  padding:60px 20px;
 }
 
-.section.active { display:flex; }
+.section.active{display:flex}
 
-.gold { color:#d4af37; }
+.gold{color:#d4af37}
 
-.script {
+.script{
   font-family:'Playfair Display',serif;
-  font-size:54px;
+  font-size:52px;
 }
 
-.btn {
+.btn{
   margin-top:30px;
   padding:14px 36px;
   border-radius:30px;
@@ -46,86 +46,107 @@ body {
   cursor:pointer;
 }
 
-.countdown {
+/* COUNTDOWN */
+.countdown{
   display:flex;
-  gap:12px;
-  margin:30px 0;
+  gap:18px;
+  margin:40px 0;
   justify-content:center;
+  flex-wrap:wrap;
 }
 
-.time-box {
-  background:rgba(255,255,255,0.1);
-  padding:12px;
-  border-radius:14px;
-  width:70px;
+.time-box{
+  background:rgba(255,255,255,.12);
+  padding:16px 14px;
+  border-radius:16px;
+  width:80px;
 }
 
-.time-box h3 {
+.time-box h3{
+  font-size:26px;
   color:#d4af37;
-  font-size:24px;
+  margin-bottom:4px;
 }
 
-iframe {
+.time-box small{
+  font-size:12px;
+  opacity:.8;
+}
+
+iframe{
   width:100%;
+  max-width:420px;
   height:220px;
   border:none;
   border-radius:14px;
-  margin-top:15px;
+  margin-top:20px;
 }
 
-/* ===== ANIMATION ===== */
-.fade-in {
-  animation: fadeIn 1s ease forwards;
+/* FOOTER */
+.footer{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:rgba(0,0,0,.35);
+  padding:12px;
+  text-align:center;
+  font-size:13px;
+  z-index:500;
 }
 
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(30px); }
-  to { opacity:1; transform:translateY(0); }
+/* MUSIC BUTTON */
+.music-btn{
+  position:fixed;
+  bottom:70px;
+  right:20px;
+  background:#d4af37;
+  color:#0f2347;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:22px;
+  z-index:1000;
+}
+
+/* ANIMATION */
+.fade-in{
+  animation:fadeIn 1s ease forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 /* SPARKLE */
-.sparkle {
+.sparkle{
   position:fixed;
   top:-10px;
   width:6px;
   height:6px;
   background:radial-gradient(circle,#ffd700,transparent);
   border-radius:50%;
-  opacity:.8;
-  animation: fall linear infinite;
+  animation:fall linear infinite;
 }
-
-@keyframes fall {
-  to { transform:translateY(110vh); }
-}
-
-/* MUSIC BUTTON */
-.music-btn {
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#d4af37;
-  color:#0f2347;
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:20px;
-  z-index:1000;
+@keyframes fall{
+  to{transform:translateY(110vh)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
+<!-- AUDIO -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
-<div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+<div class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</div>
 
 <!-- OPENING -->
 <div id="opening" class="section active fade-in">
@@ -134,7 +155,6 @@ iframe {
     <h2 id="guestName" class="gold">Tamu Undangan</h2>
     <div class="script gold">Anantha</div>
     <p>Birthday</p>
-
     <button class="btn" onclick="openInvitation()">Open Invitation</button>
   </div>
 </div>
@@ -146,12 +166,10 @@ iframe {
     <div class="script gold">Anantha</div>
     <p>As He Turns Seventeen</p>
 
-    <p style="margin:20px 0">
-      <strong>SABTU</strong><br>
-      10 JANUARI 2026
+    <p style="margin:24px 0">
+      <strong>SABTU</strong><br>10 JANUARI 2026
     </p>
 
-    <!-- COUNTDOWN -->
     <div class="countdown">
       <div class="time-box"><h3 id="days">0</h3><small>Days</small></div>
       <div class="time-box"><h3 id="hours">0</h3><small>Hours</small></div>
@@ -159,82 +177,99 @@ iframe {
       <div class="time-box"><h3 id="seconds">0</h3><small>Seconds</small></div>
     </div>
 
-    <p>
-      📍 <strong>The Royal Ballroom</strong><br>
-      Denpasar, Bali
-    </p>
+    <p>📍 <strong>The Royal Ballroom</strong><br>Denpasar, Bali</p>
 
     <iframe src="https://www.google.com/maps?q=Denpasar+Bali&output=embed"></iframe>
 
-    <button class="btn" onclick="backToOpening()">Back</button>
+    <!-- <button class="btn" onclick="backToOpening()">Back</button> -->
   </div>
 </div>
 
-<script>
-/* NAMA TAMU DARI URL */
-const params = new URLSearchParams(window.location.search);
-const guest = params.get("to");
-if (guest) {
-  document.getElementById("guestName").innerText =
-    guest.replace(/-/g," ");
-}
+<div class="footer">
+  © 2026 Birthday Invitation • Made with ❤️ TuKevin
+</div>
 
-/* PAGE SWITCH */
-function openInvitation() {
+<script>
+/* NAMA TAMU */
+const params=new URLSearchParams(location.search);
+const guest=params.get("to");
+if(guest) guestName.innerText=guest.replace(/-/g," ");
+
+/* PAGE */
+const opening=document.getElementById("opening");
+const invitation=document.getElementById("invitation");
+const footer=document.querySelector(".footer");
+const musicBtn=document.getElementById("musicBtn");
+
+/*************  ✨ Windsurf Command ⭐  *************/
+/**
+ * Open the invitation page.
+ * This function removes the 'active' class from the opening page,
+ * adds the 'active' and 'fade-in' classes to the invitation page,
+ * sets the display of the footer to 'block',
+ * sets the display of the music button to 'flex',
+ * and plays the background music.
+ */
+/*******  18c674c5-95ed-40d9-a704-99b70e2e75ae  *******/
+function openInvitation(){
   opening.classList.remove("active");
   invitation.classList.add("active","fade-in");
+  footer.style.display="block";
+  musicBtn.style.display="flex";
   playMusic();
 }
-
-function backToOpening() {
+function backToOpening(){
   invitation.classList.remove("active");
   opening.classList.add("active","fade-in");
+  footer.style.display="none";
+  musicBtn.style.display="none";
 }
 
 /* COUNTDOWN */
-const targetDate = new Date("January 10, 2026 18:00:00").getTime();
+const target=new Date("January 10, 2026 18:00:00").getTime();
 setInterval(()=>{
-  const now = new Date().getTime();
-  const d = targetDate - now;
-  if (d < 0) return;
-  days.innerText = Math.floor(d / (1000*60*60*24));
-  hours.innerText = Math.floor((d/(1000*60*60))%24);
-  minutes.innerText = Math.floor((d/(1000*60))%60);
-  seconds.innerText = Math.floor((d/1000)%60);
+  const now=Date.now();
+  const d=target-now;
+  if(d<0) return;
+  days.innerText=Math.floor(d/86400000);
+  hours.innerText=Math.floor(d/3600000)%24;
+  minutes.innerText=Math.floor(d/60000)%60;
+  seconds.innerText=Math.floor(d/1000)%60;
 },1000);
 
 /* MUSIC */
-const music = document.getElementById("bgMusic");
-let playing = false;
+const music=document.getElementById("bgMusic");
+let playing=false;
 
 function playMusic(){
   if(!playing){
     music.play();
-    playing = true;
+    playing=true;
   }
 }
 function toggleMusic(){
   if(playing){
     music.pause();
-    playing=false;
-  } else {
+    musicBtn.innerText="🔇";
+  }else{
     music.play();
-    playing=true;
+    musicBtn.innerText="🎵";
   }
+  playing=!playing;
 }
 
 /* SPARKLE */
-function sparkle(){
-  const s = document.createElement("div");
+setInterval(()=>{
+  const s=document.createElement("div");
   s.className="sparkle";
   s.style.left=Math.random()*innerWidth+"px";
   s.style.animationDuration=(3+Math.random()*3)+"s";
   document.body.appendChild(s);
   setTimeout(()=>s.remove(),6000);
-}
-setInterval(sparkle,300);
+},300);
 </script>
 
 </body>
 </html>
+
 
