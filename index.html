@@ -17,6 +17,7 @@ body{
   overflow-x:hidden;
 }
 
+/* SECTION */
 .section{
   min-height:100vh;
   display:none;
@@ -25,15 +26,10 @@ body{
   text-align:center;
   padding:60px 20px;
 }
-
 .section.active{display:flex}
 
 .gold{color:#d4af37}
-
-.script{
-  font-family:'Playfair Display',serif;
-  font-size:52px;
-}
+.script{font-family:'Playfair Display',serif;font-size:52px}
 
 .btn{
   margin-top:30px;
@@ -46,26 +42,24 @@ body{
   cursor:pointer;
 }
 
-/* COUNTDOWN */
+/* COUNTDOWN – GRID */
 .countdown{
-  display:flex;
-  gap:18px;
-  margin:40px 0;
-  justify-content:center;
-  flex-wrap:wrap;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin:40px auto;
+  max-width:420px;
 }
 
 .time-box{
   background:rgba(255,255,255,.12);
-  padding:16px 14px;
+  padding:16px 10px;
   border-radius:16px;
-  width:80px;
 }
 
 .time-box h3{
   font-size:26px;
   color:#d4af37;
-  margin-bottom:4px;
 }
 
 .time-box small{
@@ -73,6 +67,7 @@ body{
   opacity:.8;
 }
 
+/* MAP */
 iframe{
   width:100%;
   max-width:420px;
@@ -96,22 +91,23 @@ iframe{
   z-index:500;
 }
 
-/* MUSIC BUTTON */
+/* MUSIC BUTTON – TOP RIGHT */
 .music-btn{
   position:fixed;
-  bottom:70px;
+  top:20px;
   right:20px;
-  background:#d4af37;
-  color:#0f2347;
   width:48px;
   height:48px;
+  background:#d4af37;
+  color:#0f2347;
   border-radius:50%;
   display:none;
   align-items:center;
   justify-content:center;
-  cursor:pointer;
   font-size:22px;
-  z-index:1000;
+  cursor:pointer;
+  z-index:2000;
+  box-shadow:0 6px 15px rgba(0,0,0,.35);
 }
 
 /* ANIMATION */
@@ -135,6 +131,12 @@ iframe{
 }
 @keyframes fall{
   to{transform:translateY(110vh)}
+}
+
+/* SMALL SCREEN */
+@media(max-width:360px){
+  .time-box h3{font-size:22px}
+  .time-box small{font-size:11px}
 }
 </style>
 </head>
@@ -179,9 +181,7 @@ iframe{
 
     <p>📍 <strong>The Royal Ballroom</strong><br>Denpasar, Bali</p>
 
-    <iframe src="https://www.google.com/maps?q=Denpasar+Bali&output=embed"></iframe>
-
-    <!-- <button class="btn" onclick="backToOpening()">Back</button> -->
+    <iframe src="https://www.google.com/maps?q=Denpasar+Bali&output=embed" loading="lazy"></iframe>
   </div>
 </div>
 
@@ -190,27 +190,17 @@ iframe{
 </div>
 
 <script>
-/* NAMA TAMU */
+/* GUEST NAME */
 const params=new URLSearchParams(location.search);
 const guest=params.get("to");
 if(guest) guestName.innerText=guest.replace(/-/g," ");
 
-/* PAGE */
+/* PAGE SWITCH */
 const opening=document.getElementById("opening");
 const invitation=document.getElementById("invitation");
 const footer=document.querySelector(".footer");
 const musicBtn=document.getElementById("musicBtn");
 
-/*************  ✨ Windsurf Command ⭐  *************/
-/**
- * Open the invitation page.
- * This function removes the 'active' class from the opening page,
- * adds the 'active' and 'fade-in' classes to the invitation page,
- * sets the display of the footer to 'block',
- * sets the display of the music button to 'flex',
- * and plays the background music.
- */
-/*******  18c674c5-95ed-40d9-a704-99b70e2e75ae  *******/
 function openInvitation(){
   opening.classList.remove("active");
   invitation.classList.add("active","fade-in");
@@ -218,18 +208,11 @@ function openInvitation(){
   musicBtn.style.display="flex";
   playMusic();
 }
-function backToOpening(){
-  invitation.classList.remove("active");
-  opening.classList.add("active","fade-in");
-  footer.style.display="none";
-  musicBtn.style.display="none";
-}
 
 /* COUNTDOWN */
-const target=new Date("January 10, 2026 18:00:00").getTime();
+const target=new Date("January 10, 2026 19:00:00").getTime();
 setInterval(()=>{
-  const now=Date.now();
-  const d=target-now;
+  const d=target-Date.now();
   if(d<0) return;
   days.innerText=Math.floor(d/86400000);
   hours.innerText=Math.floor(d/3600000)%24;
@@ -242,11 +225,12 @@ const music=document.getElementById("bgMusic");
 let playing=false;
 
 function playMusic(){
-  if(!playing){
-    music.play();
+  music.play().then(()=>{
     playing=true;
-  }
+    musicBtn.innerText="🎵";
+  }).catch(()=>{});
 }
+
 function toggleMusic(){
   if(playing){
     music.pause();
@@ -271,5 +255,6 @@ setInterval(()=>{
 
 </body>
 </html>
+
 
 
