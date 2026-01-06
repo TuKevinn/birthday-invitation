@@ -8,99 +8,70 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg, #0f2347, #142d5f);
-  color: white;
-  overflow-x: hidden;
+  background: linear-gradient(180deg,#0f2347,#142d5f);
+  color:white;
+  overflow-x:hidden;
 }
 
-/* ===== SECTION ===== */
 .section {
-  min-height: 100vh;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 40px 20px;
+  min-height:100vh;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:40px 20px;
 }
 
-.section.active {
-  display: flex;
-}
+.section.active { display:flex; }
 
-/* ===== TEXT ===== */
-.gold { color: #d4af37; }
+.gold { color:#d4af37; }
 
 .script {
-  font-family: 'Playfair Display', serif;
-  font-size: 54px;
+  font-family:'Playfair Display',serif;
+  font-size:54px;
 }
 
-/* ===== BUTTON ===== */
 .btn {
-  margin-top: 30px;
-  padding: 14px 36px;
-  border-radius: 30px;
-  background: #d4af37;
-  color: #0f2347;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
+  margin-top:30px;
+  padding:14px 36px;
+  border-radius:30px;
+  background:#d4af37;
+  color:#0f2347;
+  font-weight:600;
+  border:none;
+  cursor:pointer;
 }
 
-/* ===== COUNTDOWN ===== */
 .countdown {
-  display: flex;
-  gap: 12px;
-  margin: 30px 0;
-  justify-content: center;
+  display:flex;
+  gap:12px;
+  margin:30px 0;
+  justify-content:center;
 }
 
 .time-box {
-  background: rgba(255,255,255,0.1);
-  padding: 12px;
-  border-radius: 14px;
-  width: 70px;
+  background:rgba(255,255,255,0.1);
+  padding:12px;
+  border-radius:14px;
+  width:70px;
 }
 
 .time-box h3 {
-  color: #d4af37;
-  font-size: 24px;
+  color:#d4af37;
+  font-size:24px;
 }
 
-/* ===== MAP ===== */
 iframe {
-  width: 100%;
-  height: 220px;
-  border: none;
-  border-radius: 14px;
-  margin-top: 15px;
+  width:100%;
+  height:220px;
+  border:none;
+  border-radius:14px;
+  margin-top:15px;
 }
-
-/* ===== ICON BUTTON ===== */
-.icon-btn {
-  position: fixed;
-  right: 15px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #d4af37;
-  color: #0f2347;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.music { top: 15px; }
-.back { top: 75px; }
 
 /* ===== ANIMATION ===== */
 .fade-in {
@@ -108,49 +79,61 @@ iframe {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(30px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
-/* ===== SPARKLE ===== */
+/* SPARKLE */
 .sparkle {
-  position: fixed;
-  top: -10px;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, #ffd700, transparent);
-  border-radius: 50%;
-  opacity: 0.8;
+  position:fixed;
+  top:-10px;
+  width:6px;
+  height:6px;
+  background:radial-gradient(circle,#ffd700,transparent);
+  border-radius:50%;
+  opacity:.8;
   animation: fall linear infinite;
-  pointer-events: none;
 }
 
 @keyframes fall {
-  from { transform: translateY(0); }
-  to { transform: translateY(110vh); }
+  to { transform:translateY(110vh); }
+}
+
+/* MUSIC BUTTON */
+.music-btn {
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#d4af37;
+  color:#0f2347;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-size:20px;
+  z-index:1000;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
-<audio id="music" loop>
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
-
-<button class="icon-btn music" onclick="toggleMusic()">🎵</button>
-<button class="icon-btn back" onclick="backToOpening()">↩</button>
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
 
 <!-- OPENING -->
 <div id="opening" class="section active fade-in">
   <div>
-    <p>YOU ARE INVITED TO CELEBRATE</p>
+    <p>YOU ARE INVITED</p>
+    <h2 id="guestName" class="gold">Tamu Undangan</h2>
     <div class="script gold">Anantha</div>
     <p>Birthday</p>
-    <p style="margin-top:10px">
-      Dear <span class="gold" id="guestName">Guest</span>
-    </p>
 
     <button class="btn" onclick="openInvitation()">Open Invitation</button>
   </div>
@@ -168,6 +151,7 @@ iframe {
       10 JANUARI 2026
     </p>
 
+    <!-- COUNTDOWN -->
     <div class="countdown">
       <div class="time-box"><h3 id="days">0</h3><small>Days</small></div>
       <div class="time-box"><h3 id="hours">0</h3><small>Hours</small></div>
@@ -181,67 +165,76 @@ iframe {
     </p>
 
     <iframe src="https://www.google.com/maps?q=Denpasar+Bali&output=embed"></iframe>
+
+    <button class="btn" onclick="backToOpening()">Back</button>
   </div>
 </div>
 
 <script>
-/* ===== NAVIGATION ===== */
+/* NAMA TAMU DARI URL */
+const params = new URLSearchParams(window.location.search);
+const guest = params.get("to");
+if (guest) {
+  document.getElementById("guestName").innerText =
+    guest.replace(/-/g," ");
+}
+
+/* PAGE SWITCH */
 function openInvitation() {
   opening.classList.remove("active");
-  invitation.classList.add("active", "fade-in");
+  invitation.classList.add("active","fade-in");
   playMusic();
 }
 
 function backToOpening() {
   invitation.classList.remove("active");
-  opening.classList.add("active", "fade-in");
+  opening.classList.add("active","fade-in");
 }
 
-/* ===== MUSIC ===== */
-const music = document.getElementById("music");
+/* COUNTDOWN */
+const targetDate = new Date("January 10, 2026 18:00:00").getTime();
+setInterval(()=>{
+  const now = new Date().getTime();
+  const d = targetDate - now;
+  if (d < 0) return;
+  days.innerText = Math.floor(d / (1000*60*60*24));
+  hours.innerText = Math.floor((d/(1000*60*60))%24);
+  minutes.innerText = Math.floor((d/(1000*60))%60);
+  seconds.innerText = Math.floor((d/1000)%60);
+},1000);
+
+/* MUSIC */
+const music = document.getElementById("bgMusic");
 let playing = false;
 
-function toggleMusic() {
-  playing ? music.pause() : music.play();
-  playing = !playing;
-}
-
-function playMusic() {
-  if (!playing) {
+function playMusic(){
+  if(!playing){
     music.play();
     playing = true;
   }
 }
-
-/* ===== COUNTDOWN ===== */
-const targetDate = new Date("January 10, 2026 18:00:00").getTime();
-setInterval(() => {
-  const now = new Date().getTime();
-  const d = targetDate - now;
-  if (d < 0) return;
-
-  days.innerText = Math.floor(d / (1000 * 60 * 60 * 24));
-  hours.innerText = Math.floor((d / (1000 * 60 * 60)) % 24);
-  minutes.innerText = Math.floor((d / (1000 * 60)) % 60);
-  seconds.innerText = Math.floor((d / 1000) % 60);
-}, 1000);
-
-/* ===== SPARKLE EFFECT ===== */
-function createSparkle() {
-  const s = document.createElement("div");
-  s.className = "sparkle";
-  s.style.left = Math.random() * window.innerWidth + "px";
-  s.style.animationDuration = (3 + Math.random() * 3) + "s";
-  document.body.appendChild(s);
-  setTimeout(() => s.remove(), 6000);
+function toggleMusic(){
+  if(playing){
+    music.pause();
+    playing=false;
+  } else {
+    music.play();
+    playing=true;
+  }
 }
-setInterval(createSparkle, 300);
 
-/* ===== GUEST NAME FROM URL ===== */
-const params = new URLSearchParams(window.location.search);
-const guest = params.get("to");
-if (guest) guestName.innerText = guest;
+/* SPARKLE */
+function sparkle(){
+  const s = document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*innerWidth+"px";
+  s.style.animationDuration=(3+Math.random()*3)+"s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),6000);
+}
+setInterval(sparkle,300);
 </script>
 
 </body>
 </html>
+
